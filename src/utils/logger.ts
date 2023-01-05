@@ -73,3 +73,9 @@ export const errorLogger = error => {
 
   logger.error(message);
 };
+
+export const stream = {
+  write: (message: string) => {
+    logger.info(message.substring(0, message.lastIndexOf('\n')));
+  },
+};

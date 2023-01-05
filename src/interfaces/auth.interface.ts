@@ -12,3 +12,9 @@ export interface TokenData {
 export interface RequestWithUser {
   user: User;
 }
+
+export interface AuthResponse {
+  findUser: User;
+  cookie?: string;
+  tokenData?: TokenData;
+}

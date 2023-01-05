@@ -1,19 +1,20 @@
 import 'reflect-metadata';
 import { ApolloServerPluginLandingPageProductionDefault, ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer, CorsOptions } from 'apollo-server-express';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
+import morgan from 'morgan';
+import { Model } from 'objection';
 import { buildSchema } from 'type-graphql';
-import { createConnection } from 'typeorm';
-import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from '@config';
-import { dbConnection } from '@databases';
+import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
+import knex from '@databases';
 import { authMiddleware, authChecker } from '@middlewares/auth.middleware';
 import errorMiddleware from '@middlewares/error.middleware';
-import { logger, responseLogger, errorLogger } from '@utils/logger';
+import { logger, stream, responseLogger, errorLogger } from '@utils/logger';
 
 class App {
   public app: express.Application;
@@ -46,13 +47,19 @@ class App {
   }
 
   private connectToDatabase() {
-    createConnection(dbConnection);
+    Model.knex(knex);
   }
 
   private initializeMiddlewares() {
+    this.app.use(morgan(LOG_FORMAT, { stream }));
     this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
     this.app.use(hpp());
-    this.app.use(helmet());
+    this.app.use(
+      helmet({
+        crossOriginEmbedderPolicy: this.env !== 'development',
+        contentSecurityPolicy: this.env !== 'development',
+      }),
+    );
     this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
@@ -93,7 +100,10 @@ class App {
     });
 
     await apolloServer.start();
-    apolloServer.applyMiddleware({ app: this.app, cors: ORIGIN, path: '/graphql' });
+    const corsOptions: CorsOptions = {
+      origin: ORIGIN,
+    };
+    apolloServer.applyMiddleware({ app: this.app, cors: corsOptions, path: '/graphql' });
   }
 
   private initializeErrorHandling() {

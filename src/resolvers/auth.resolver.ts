@@ -1,32 +1,30 @@
-import { Authorized, Arg, Ctx, Mutation, Resolver } from 'type-graphql';
+import { Arg, Authorized, Ctx, Mutation, Resolver } from 'type-graphql';
 import { CreateUserDto } from '@dtos/users.dto';
 import AuthRepository from '@repositories/auth.repository';
-import { User } from '@typedefs/users.type';
+import { UserObjectType } from '@typedefs/users.type';
 
 @Resolver()
-export class authResolver extends AuthRepository {
-  @Mutation(() => User, {
+export class AuthResolver extends AuthRepository {
+  @Mutation(() => UserObjectType, {
     description: 'User signup',
   })
-  async signup(@Arg('userData') userData: CreateUserDto): Promise<User> {
-    const user: User = await this.userSignUp(userData);
-    return user;
+  async signup(@Arg('userData') userData: CreateUserDto): Promise<UserObjectType> {
+    return this.userSignUp(userData);
   }
 
-  @Mutation(() => User, {
+  @Mutation(() => UserObjectType, {
     description: 'User login',
   })
-  async login(@Arg('userData') userData: CreateUserDto): Promise<User> {
-    const { findUser } = await this.userLogIn(userData);
-    return findUser;
+  async login(@Arg('userData') userData: CreateUserDto): Promise<UserObjectType> {
+    const { findUser, tokenData } = await this.userLogIn(userData);
+    return { ...findUser, tokenData: tokenData.token };
   }
 
   @Authorized()
-  @Mutation(() => User, {
+  @Mutation(() => UserObjectType, {
     description: 'User logout',
   })
-  async logout(@Ctx('user') userData: any): Promise<User> {
-    const user = await this.userLogOut(userData);
-    return user;
+  async logout(@Ctx('user') userData: any): Promise<UserObjectType> {
+    return this.userLogOut(userData);
   }
 }
