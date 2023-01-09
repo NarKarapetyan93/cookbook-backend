@@ -130,6 +130,7 @@ dist
 .pnp.*
 
 # idea
+.idea
 /.idea/.gitignore
 /.idea/backend.iml
 /.idea/codeStyles/codeStyleConfig.xml
