@@ -1,11 +1,11 @@
 import { Model, ModelObject } from 'objection';
-import { Category } from '@interfaces/categories.interface';
+import { CategoriesInterface } from '@interfaces/categories.interface';
 
-export class CategoryModel extends Model implements Category {
+export class CategoriesModel extends Model implements CategoriesInterface {
   id!: number;
   title: string;
   static tableName = 'categories'; // database table name
   static idColumn = 'id'; // id column name
 }
 
-export type CategoriesShape = ModelObject<CategoryModel>;
+export type CategoriesShape = ModelObject<CategoriesModel>;

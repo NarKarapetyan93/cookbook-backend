@@ -1,9 +1,9 @@
 import { InputType, Field } from 'type-graphql';
-import { UserObjectType } from '@typedefs/users.type';
+import { UsersType } from '@typedefs/users.type';
 import { IsEmail, IsNumber, IsOptional, IsString } from 'class-validator';
 
 @InputType()
-export class CreateUserDto implements Partial<UserObjectType> {
+export class CreateUserDto implements Partial<UsersType> {
   @Field({ nullable: true })
   @IsOptional()
   @IsString()

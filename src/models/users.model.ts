@@ -1,7 +1,7 @@
 import { Model, ModelObject } from 'objection';
-import { User } from '@interfaces/users.interface';
+import { UsersInterface } from '@interfaces/users.interface';
 
-export class UserModel extends Model implements User {
+export class UsersModel extends Model implements UsersInterface {
   id!: number;
   firstname?: string;
   lastname?: string;
@@ -12,4 +12,4 @@ export class UserModel extends Model implements User {
   static idColumn = 'id'; // id column name
 }
 
-export type UsersShape = ModelObject<UserModel>;
+export type UsersShape = ModelObject<UsersModel>;

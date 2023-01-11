@@ -1,11 +1,9 @@
-# baseURL
-@baseURL = http://localhost:3000/graphql
+### Request to get GraphQL Schema
+GET {{baseURL}}
 
 ###
-# User Signup
-POST {{ baseURL }}
-Content-Type: application/json
-X-REQUEST-TYPE: GraphQL
+# Users Signup
+GRAPHQL {{$baseURL}}
 
 mutation {
     signup (userData: {
@@ -19,8 +17,8 @@ mutation {
 }
 
 ###
-# User Login
-POST {{ baseURL }}
+# Users Login
+GRAPHQL {{$baseURL}}
 Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
@@ -35,8 +33,8 @@ mutation {
 }
 
 ###
-# User Logout
-POST {{ baseURL }}
+# Users Logout
+GRAPHQL {{$baseURL}}
 Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjM5MDQ3MjM3LCJleHAiOjE2MzkwNTA4Mzd9.HD0AvZl1s-mycKxo0IJ1QT-oSKhjeArXrlNBffZUanY;
