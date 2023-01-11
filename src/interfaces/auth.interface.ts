@@ -1,4 +1,4 @@
-import { User } from '@interfaces/users.interface';
+import { UsersInterface } from '@interfaces/users.interface';
 
 export interface DataStoredInToken {
   id: number;
@@ -10,11 +10,11 @@ export interface TokenData {
 }
 
 export interface RequestWithUser {
-  user: User;
+  user: UsersInterface;
 }
 
 export interface AuthResponse {
-  findUser: User;
+  findUser: UsersInterface;
   cookie?: string;
   tokenData?: TokenData;
 }

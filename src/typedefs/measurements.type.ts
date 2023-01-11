@@ -1,7 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()
-export class CategoriesType {
+export class MeasurementsType {
   @Field()
   id: number;
 

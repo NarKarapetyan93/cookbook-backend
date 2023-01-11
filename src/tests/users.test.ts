@@ -1,7 +1,7 @@
 import request from 'supertest';
 import App from '@app';
 import { CreateUserDto } from '@dtos/users.dto';
-import { User } from '@interfaces/users.interface';
+import { UsersInterface } from '@interfaces/users.interface';
 import userModel from '@models/users.model';
 import UserRoute from '@routes/users.route';
 
@@ -12,7 +12,7 @@ afterAll(async () => {
 describe('Testing Users', () => {
   describe('[GET] /users', () => {
     it('response statusCode 200 / findAll', () => {
-      const findUser: User[] = userModel;
+      const findUser: UsersInterface[] = userModel;
       const usersRoute = new UserRoute();
       const app = new App([usersRoute]);
 
@@ -23,7 +23,7 @@ describe('Testing Users', () => {
   describe('[GET] /users/:id', () => {
     it('response statusCode 200 / findOne', () => {
       const userId = 1;
-      const findUser: User = userModel.find(user => user.id === userId);
+      const findUser: UsersInterface = userModel.find(user => user.id === userId);
       const usersRoute = new UserRoute();
       const app = new App([usersRoute]);
 
@@ -61,7 +61,7 @@ describe('Testing Users', () => {
   describe('[DELETE] /users/:id', () => {
     it('response statusCode 200 / deleted', () => {
       const userId = 1;
-      const deleteUser: User[] = userModel.filter(user => user.id !== userId);
+      const deleteUser: UsersInterface[] = userModel.filter(user => user.id !== userId);
       const usersRoute = new UserRoute();
       const app = new App([usersRoute]);
 

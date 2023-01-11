@@ -1,47 +1,47 @@
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
-import CategoryRepository from '@repositories/categories.repository';
-import { CategoryObjectType } from '@typedefs/categories.type';
+import CategoriesRepository from '@repositories/categories.repository';
+import { CategoriesType } from '@typedefs/categories.type';
 import { CreateCategoryDto } from '@dtos/categories.dto';
 
 @Resolver()
-export class CategoryResolver extends CategoryRepository {
-  @Query(() => [CategoryObjectType], {
+export class CategoriesResolver extends CategoriesRepository {
+  @Query(() => [CategoriesType], {
     description: 'Category find list',
   })
-  async getCategories(): Promise<CategoryObjectType[]> {
-    const categories: CategoryObjectType[] = await this.categoryFindAll();
+  async getCategories(): Promise<CategoriesType[]> {
+    const categories: CategoriesType[] = await this.categoryFindAll();
     return categories;
   }
 
-  @Query(() => CategoryObjectType, {
+  @Query(() => CategoriesType, {
     description: 'Category find by id',
   })
-  async getCategoryById(@Arg('categoryId') categoryId: number): Promise<CategoryObjectType> {
-    const category: CategoryObjectType = await this.categoryFindById(categoryId);
+  async getCategoryById(@Arg('categoryId') categoryId: number): Promise<CategoriesType> {
+    const category: CategoriesType = await this.categoryFindById(categoryId);
     return category;
   }
 
-  @Mutation(() => CategoryObjectType, {
+  @Mutation(() => CategoriesType, {
     description: 'Category create',
   })
-  async createCategory(@Arg('categoryData') categoryData: CreateCategoryDto): Promise<CategoryObjectType> {
-    const category: CategoryObjectType = await this.categoryCreate(categoryData);
+  async createCategory(@Arg('categoryData') categoryData: CreateCategoryDto): Promise<CategoriesType> {
+    const category: CategoriesType = await this.categoryCreate(categoryData);
     return category;
   }
 
-  @Mutation(() => CategoryObjectType, {
+  @Mutation(() => CategoriesType, {
     description: 'Category update',
   })
-  async updateCategory(@Arg('categoryId') categoryId: number, @Arg('categoryData') categoryData: CreateCategoryDto): Promise<CategoryObjectType> {
-    const category: CategoryObjectType = await this.categoryUpdate(categoryId, categoryData);
+  async updateCategory(@Arg('categoryId') categoryId: number, @Arg('categoryData') categoryData: CreateCategoryDto): Promise<CategoriesType> {
+    const category: CategoriesType = await this.categoryUpdate(categoryId, categoryData);
     return category;
   }
 
-  @Mutation(() => CategoryObjectType, {
+  @Mutation(() => CategoriesType, {
     description: 'Category delete',
   })
-  async deleteCategory(@Arg('categoryId') categoryId: number): Promise<CategoryObjectType> {
-    const category: CategoryObjectType = await this.categoryDelete(categoryId);
+  async deleteCategory(@Arg('categoryId') categoryId: number): Promise<CategoriesType> {
+    const category: CategoriesType = await this.categoryDelete(categoryId);
     return category;
   }
 }

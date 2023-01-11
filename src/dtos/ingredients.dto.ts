@@ -1,9 +1,9 @@
 import { InputType, Field } from 'type-graphql';
 import { IsString } from 'class-validator';
-import { CategoriesType } from '@typedefs/categories.type';
+import { IngredientsType } from '@typedefs/ingredients.type';
 
 @InputType()
-export class CreateCategoryDto implements Partial<CategoriesType> {
+export class CreateIngredientDto implements Partial<IngredientsType> {
   @Field()
   @IsString()
   title: string;
