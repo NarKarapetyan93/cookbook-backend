@@ -8,6 +8,6 @@ export async function seed(knex: Knex): Promise<void> {
   await knex('roles').insert([
     { id: 1, title: 'admin' },
     { id: 2, title: 'chef' },
-    { id: 3, title: 'user' },
+    { id: 3, title: 'visitor' },
   ]);
 }
